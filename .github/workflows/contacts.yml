@@ -104,6 +104,9 @@ jobs:
   publish:
     runs-on: ubuntu-22.04
     needs: [build]
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
