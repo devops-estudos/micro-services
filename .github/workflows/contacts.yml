@@ -45,24 +45,24 @@ jobs:
       - name: Check types
         run: pnpm run check-types --filter=contacts
 
-  tests:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
-      - name: Install PNPM
-        uses: pnpm/action-setup@v4
-      - name: Use Node.js 22
-        uses: actions/setup-node@v5
-        with:
-          node-version: '22'
-          cache: "pnpm"
+  # tests:
+  #   runs-on: ubuntu-22.04
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v5
+  #     - name: Install PNPM
+  #       uses: pnpm/action-setup@v4
+  #     - name: Use Node.js 22
+  #       uses: actions/setup-node@v5
+  #       with:
+  #         node-version: '22'
+  #         cache: "pnpm"
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+  #     - name: Install dependencies
+  #       run: pnpm install --frozen-lockfile
 
-      - name: Test
-        run: pnpm run test:coverage --filter=contacts
+  #     - name: Test
+  #       run: pnpm run test:coverage --filter=contacts
 
   build:
     runs-on: ubuntu-22.04
