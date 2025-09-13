@@ -9,9 +9,10 @@
     "build": "node ace build",
     "dev": "node ace serve --hmr",
     "test": "node ace test",
+    "test:coverage": "node ace test --coverage",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "typecheck": "tsc --noEmit"
+    "check-types": "tsc --noEmit"
   },
   "imports": {
     "#controllers/*": "./app/controllers/*.js",
