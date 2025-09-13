@@ -4,13 +4,13 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - "apps/contacts/**"
+    # paths:
+    #   - "apps/contacts/**"
   push:
     branches:
       - main
-    paths:
-      - "apps/contacts/**"
+    # paths:
+    #   - "apps/contacts/**"
 
 jobs:
   lint:
