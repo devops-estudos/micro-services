@@ -110,7 +110,7 @@ jobs:
       - name: Setup AWS
         uses: aws-actions/configure-aws-credentials@v5
         with:
-          role-to-assume: ${{ vars.OIDC_ARN_ROLE }}
+          role-to-assume: ${{ secrets.OIDC_ARN_ROLE }}
           role-session-name: github-actions-${{ github.ref }}
           aws-region: us-east-1
 
