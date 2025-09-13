@@ -12,6 +12,10 @@ on:
     # paths:
     #   - "apps/contacts/**"
 
+env:
+  NODE_VERSION: '22'
+  SERVICE: 'contacts'
+
 jobs:
   lint:
     runs-on: ubuntu-22.04
@@ -21,11 +25,17 @@ jobs:
       - name: Install PNPM
         uses: pnpm/action-setup@v4
 
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "pnpm"
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Lint
-        run: pnpm run lint --filter=contacts
+        run: pnpm run lint --filter=${{ env.SERVICE }}
 
   check-types:
     runs-on: ubuntu-22.04
@@ -34,16 +44,16 @@ jobs:
         uses: actions/checkout@v5
       - name: Install PNPM
         uses: pnpm/action-setup@v4
-      - name: Use Node.js 22
+      - name: Use Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v5
         with:
-          node-version: '22'
+          node-version: ${{ env.NODE_VERSION }}
           cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Check types
-        run: pnpm run check-types --filter=contacts
+        run: pnpm run check-types --filter=${{ env.SERVICE }}
 
   # tests:
   #   runs-on: ubuntu-22.04
@@ -52,17 +62,17 @@ jobs:
   #       uses: actions/checkout@v5
   #     - name: Install PNPM
   #       uses: pnpm/action-setup@v4
-  #     - name: Use Node.js 22
+  #     - name: Use Node.js ${{ env.NODE_VERSION }}
   #       uses: actions/setup-node@v5
   #       with:
-  #         node-version: '22'
+  #         node-version: ${{ env.NODE_VERSION }}
   #         cache: "pnpm"
 
   #     - name: Install dependencies
   #       run: pnpm install --frozen-lockfile
 
   #     - name: Test
-  #       run: pnpm run test:coverage --filter=contacts
+  #       run: pnpm run test:coverage --filter=${{ env.SERVICE }}
 
   build:
     runs-on: ubuntu-22.04
@@ -72,29 +82,25 @@ jobs:
         uses: actions/checkout@v5
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-      - name: Use Node.js 22
+      - name: Use Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v5
         with:
-          node-version: '22'
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build
-        run: pnpm run build --filter=contacts
+        run: pnpm run build --filter=${{ env.SERVICE }}
 
       - name: Install Prod dependencies
-        working-directory: apps/contacts/build
+        working-directory: apps/${{ env.SERVICE }}/build
         run: pnpm install --prod
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: contacts
-          path: apps/contacts/build
+          name: ${{ env.SERVICE }}
+          path: apps/${{ env.SERVICE }}/build
           retention-days: 1
       
-    
-
-      
-     
