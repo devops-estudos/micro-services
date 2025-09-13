@@ -92,10 +92,7 @@ jobs:
 
       - name: Build
         run: pnpm run build --filter=${{ env.SERVICE }}
-
-      - name: Install Prod dependencies
-        working-directory: apps/${{ env.SERVICE }}/build
-        run: pnpm install --prod
+        
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
