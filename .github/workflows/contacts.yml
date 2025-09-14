@@ -126,7 +126,7 @@ jobs:
         with:
           images: ${{ vars.CONTACTS_ECR_REPOSITORY_URL }}
           tags: |
-            type=sha,format=short
+            type=sha,prefix=,format=short
       - name: Login to Container Registry
         uses: aws-actions/amazon-ecr-login@v2
 
