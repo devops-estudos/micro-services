@@ -105,8 +105,8 @@ jobs:
     runs-on: ubuntu-22.04
     needs: [build]
     permissions:
+      id-token: write
       contents: read
-      packages: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -121,12 +121,8 @@ jobs:
           images: ${{ vars.CONTACTS_CONTAINER_REGISTRY }}
           tags: |
             type=sha,prefix=,format=short
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Login to Container Registry
+        uses: aws-actions/amazon-ecr-login@v2
 
       - name: Download artifact
         uses: actions/download-artifact@v4
